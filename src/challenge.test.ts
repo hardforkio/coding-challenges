@@ -1,7 +1,19 @@
 import test from 'tape'
-import { add } from './challenge'
+import { sumOfPositive } from './challenge'
 
-test('Should add two numbers', assert => {
+test('Sums ', assert => {
   assert.plan(1)
-  assert.equal(add(1, 2), 3)
+  assert.equal(sumOfPositive([1, 2, 3, 4, 5]), 15)
+})
+test('Sums ', assert => {
+  assert.plan(1)
+  assert.equal(sumOfPositive([1, -2, 3, 4, 5]), 13)
+})
+test('Sums ', assert => {
+  assert.plan(1)
+  assert.equal(sumOfPositive([]), 0)
+})
+test('Sums ', assert => {
+  assert.plan(1)
+  assert.equal(sumOfPositive([-1, -2, -3, -4, -5]), 0)
 })
