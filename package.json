@@ -1,51 +1,27 @@
 {
-  "name": "@hardfork/coding-challenges",
-  "version": "0.0.1",
-  "description": "A collection of challenges used at Hardfork.",
-  "private": true,
-  "scripts": {
-    "test": "tape -r ts-node/register ./src/*.test.ts |tap-spec",
-    "test:watch": "onchange 'src/**/*.ts' -- yarn run test",
-    "lint": "tslint -p ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hardforkio/coding-challenges.git"
-  },
-  "contributors": [
-    {
-      "name": "Kilian Wimmer",
-      "email": "kilocheat@gmail.com"
+    "name": "katas-from-codewars",
+    "version": "0.0.1",
+    "description": "A collection of katas from Codewars.com.",
+    "main": "index.js",
+    "scripts": {
+        "test": "tape ./src/*.test.js |tap-spec"
     },
-    {
-      "name": "Levin Keller",
-      "email": "post@levinkeller.de"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kiliw/codewarsKatas.git"
+    },
+    "author": "kiliw",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kiliw/codewarsKatas/issues"
+    },
+    "homepage": "https://github.com/kiliw/codewarsKatas#readme",
+    "devDependencies": {
+        "prettier": "^1.14.3",
+        "tap-spec": "^5.0.0",
+        "tape": "^4.9.1"
+    },
+    "dependencies": {
+        "ramda": "^0.25.0"
     }
-  ],
-  "author": {
-    "name": "Hardfork GmbH",
-    "email": "keller@hardfork.io",
-    "url": "https://hardfork.io/"
-  },
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/hardforkio/coding-challenges/issues"
-  },
-  "homepage": "https://github.com/hardforkio/coding-challenges#readme",
-  "devDependencies": {
-    "@types/ramda": "^0.25.42",
-    "@types/tape": "^4.2.32",
-    "onchange": "^5.1.0",
-    "prettier": "^1.14.3",
-    "prettier-tslint": "^0.4.0",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.9.1",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "typescript": "^3.1.6",
-    "yarn": "^1.12.3"
-  },
-  "dependencies": {
-    "ramda": "^0.26.0"
-  }
 }
