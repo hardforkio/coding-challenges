@@ -16,7 +16,7 @@
     "url": "https://github.com/kiliw/codewarsKatas/issues"
   },
   "homepage": "https://github.com/kiliw/codewarsKatas#readme",
-  "dependencies": {
+  "devDependencies": {
     "prettier": "^1.14.3",
     "tap-spec": "^5.0.0",
     "tape": "^4.9.1"
