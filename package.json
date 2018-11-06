@@ -1,8 +1,8 @@
 {
-  "name": "@hardfork/coding-challenges",
+  "name": "katas-from-codewars",
   "version": "0.0.1",
-  "description": "A collection of challenges used at Hardfork.",
-  "private": true,
+  "description": "A collection of katas from Codewars.com.",
+  "main": "index.js",
   "scripts": {
     "test": "tape -r ts-node/register ./src/*.test.ts |tap-spec",
     "test:watch": "onchange 'src/**/*.ts' -- yarn run test",
@@ -29,7 +29,7 @@
   },
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/hardforkio/coding-challenges/issues"
+    "url": "https://github.com/kiliw/codewarsKatas/issues"
   },
   "homepage": "https://github.com/hardforkio/coding-challenges#readme",
   "devDependencies": {
