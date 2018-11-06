@@ -1,0 +1,54 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: node:8
+restore_prepared_repo: &restore_prepared_repo
+  - attach_workspace:
+      at: ~/repo
+
+version: 2
+jobs:
+  prepare_repo:
+    <<: *defaults
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: 
+          name: Install dependencies
+          command: npm i
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - '*'
+
+  test:
+    <<: *defaults
+    steps:
+      - <<: *restore_prepared_repo
+      - run:
+          name: Run tests
+          command: npm run test          
+          
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - prepare_repo
+      - test:
+          requires:
+            - prepare_repo
