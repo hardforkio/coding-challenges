@@ -1,6 +1,25 @@
 const test = require('tape')
-const { decrypt, encrypt } = require('./simpleEncryption')
+const { decrypt, encrypt, splitInHalf } = require('./simpleEncryption')
 
+test('split in half', (t) => {
+  t.test('Simple', (assert) => {
+    assert.plan(1)
+    const [_, secondHalf] = splitInHalf([1])
+    assert.deepEquals(secondHalf, [1])
+  })
+  t.test('Still simple', (assert) => {
+    assert.plan(2)
+    const [firstHalf, secondHalf] = splitInHalf([1, 2])
+    assert.deepEquals(secondHalf, [2])
+    assert.deepEquals(firstHalf, [1])
+  })
+  t.test('Still simple', (assert) => {
+    assert.plan(2)
+    const [firstHalf, secondHalf] = splitInHalf([1, 2, 3])
+    assert.deepEquals(secondHalf, [2, 3])
+    assert.deepEquals(firstHalf, [1, ''])
+  })
+})
 test('Solution', function(t) {
   t.test('EncryptExampleTests', function(assert) {
     assert.equals(encrypt('This is a test!', 0), 'This is a test!')
