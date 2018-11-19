@@ -1,7 +1,7 @@
 const test = require('tape')
 const { accum } = require('./mumbling')
 
-test.only('Simple Test', function(t) {
+test('Simple Test', function(t) {
   t.test('1', function(assert) {
     assert.plan(1)
     assert.equal(
