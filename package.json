@@ -4,7 +4,7 @@
   "description": "A collection of challenges used at Hardfork.",
   "private": true,
   "scripts": {
-    "test": "tape ./src/*.test.js |tap-spec",
+    "test": "babel-node ./node_modules/.bin/tape ./src/*.test.js | tap-spec",
     "test:watch": "onchange 'src/**/*.js' -- npm run test"
   },
   "repository": {
@@ -32,9 +32,16 @@
   },
   "homepage": "https://github.com/hardforkio/coding-challenges#readme",
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
     "onchange": "^5.1.0",
     "prettier": "^1.14.3",
     "tap-spec": "^5.0.0",
     "tape": "^4.9.1"
+  },
+  "dependencies": {
+    "ramda": "^0.26.0"
   }
 }
