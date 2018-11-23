@@ -1,5 +1,5 @@
-const test = require('tape')
-const { accum } = require('./mumbling')
+import test from 'tape'
+import { accum } from './mumbling'
 
 test('Simple Test', function(t) {
   t.test('1', function(assert) {
