@@ -6,7 +6,7 @@
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: node:8
+    - image: node:10
 restore_prepared_repo: &restore_prepared_repo
   - attach_workspace:
       at: ~/repo
@@ -20,17 +20,17 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
       - run: 
           name: Install dependencies
-          command: npm i
+          command: yarn
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: ~/repo
           paths:
@@ -42,7 +42,7 @@ jobs:
       - <<: *restore_prepared_repo
       - run:
           name: Run tests
-          command: npm run test          
+          command: yarn run test          
           
 workflows:
   version: 2
