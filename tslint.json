@@ -1,0 +1,12 @@
+{
+  "extends": ["tslint:recommended"],
+  "linterOptions": {
+    "exclude": ["./node_modules"]
+  },
+  "rules": {
+    "interface-name": [true, "never-prefix"],
+    "trailing-comma": [true, { "multiline": "always", "singleline": "never" }],
+    "arrow-parens": true,
+    "semicolon": [true, "never"]
+  }
+}
