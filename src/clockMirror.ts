@@ -52,26 +52,35 @@ export const getHour: (input: number) => string = R.pipe(
 
 export const getMinutes: (input: number) => string = R.pipe(
   R.modulo(R.__, 60),
-  Math.floor,
   R.toString,
   padToTwoDigits,
 )
 
-export const calculateResultInMinutes = R.converge(R.multiply(60), [
-  hourFromTimeString,
-  minutesFromTimeString,
-])
+export const toMinutes: (hours: number, minutes: number) => number = R.useWith(
+  R.add,
+  [R.multiply(60), R.identity],
+)
 
-export const WhatIsTheTime: (timeInMirror: string) => string = (
-  timeInMirror,
-) => {
-  // "05:25" --> "06:35";
-  // Happy Coding
+export const timeStringToMinutes: (timeInMirror: string) => number = R.converge(
+  toMinutes,
+  [hourFromTimeString, minutesFromTimeString],
+)
 
-  const resultInMinutes =
-    720 -
-    (hourFromTimeString(timeInMirror) * 60 +
-      minutesFromTimeString(timeInMirror))
+export const minutesToTimeString: (minutes: number) => string = R.converge(
+  R.concat,
+  [
+    R.pipe(
+      getHour,
+      R.concat(":"),
+    ),
+    getMinutes,
+  ],
+)
 
-  return `${getHour(resultInMinutes)}:${getMinutes(resultInMinutes)}`
-}
+export const mirrorMinutes: (minutes: number) => number = R.subtract(720)
+
+export const WhatIsTheTime: (timeInMirror: string) => string = R.pipe(
+  timeStringToMinutes,
+  mirrorMinutes,
+  minutesToTimeString,
+)
