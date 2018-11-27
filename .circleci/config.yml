@@ -42,7 +42,14 @@ jobs:
       - <<: *restore_prepared_repo
       - run:
           name: Run tests
-          command: yarn run test          
+          command: yarn run test 
+  lint:
+    <<: *defaults
+    steps:
+      - <<: *restore_prepared_repo
+      - run:
+          name: Run linter
+          command: yarn lint         
           
 workflows:
   version: 2
@@ -50,5 +57,9 @@ workflows:
     jobs:
       - prepare_repo
       - test:
+          requires:
+            - prepare_repo
+
+      - lint:
           requires:
             - prepare_repo
