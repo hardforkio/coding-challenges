@@ -1,1 +1,1 @@
-# codewarsKatas
+Each branch in this repo is a challenge. If you want to tackle a challenge, check out the corresponding branch and make the tests pass without changing them (you can add tests if you want but never change or remove a test). When you have a solution, open a pr **with the challenges branch as the base branch**. For an example see [#1](https://github.com/hardforkio/coding-challenges/pull/1)
