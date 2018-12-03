@@ -1,3 +1,6 @@
-import R from 'ramda'
-
-export const add: (a: number, b: number) => number = R.add
+export const deepEqual: (
+  array1: number[],
+  array2: number[],
+) => boolean = () => {
+  return false
+}
