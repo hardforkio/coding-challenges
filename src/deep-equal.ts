@@ -1,5 +1,3 @@
-// implement a deep equal comparision with ramda between two arrays
-
 import * as R from "ramda"
 
 const identical: (a: number, b: number) => boolean = R.identical
