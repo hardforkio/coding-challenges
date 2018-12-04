@@ -1,5 +1,5 @@
 import test from "tape"
-import { deepEqual } from "./deep-equal"
+import { deepEqual, haveSameLength } from "./deep-equal"
 
 const array1 = [1, 2, 3, 4, 5]
 const array2 = [1, 2, 3, 4, 5]
@@ -13,4 +13,23 @@ test("two arrays with the same content", (assert) => {
 test("two arrays with different content", (assert) => {
   assert.plan(1)
   assert.equal(deepEqual(array1, array3), false)
+})
+
+test("two arrays with different content", (assert) => {
+  assert.plan(1)
+  assert.equal(deepEqual(array1, [...array2, 5]), false)
+})
+
+test("array length", (assert) => {
+  assert.plan(2)
+  assert.equal(
+    haveSameLength(array1, array2),
+    true,
+    "return true if arrays have same length",
+  )
+  assert.equal(
+    haveSameLength(array1, [...array2, 5]),
+    false,
+    "return false if arrays have different length",
+  )
 })
