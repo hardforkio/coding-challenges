@@ -10,23 +10,15 @@ export const deepEqualIfArraysHaveSameLength: (
   R.reduce<boolean, boolean>(R.and, true),
 )
 
-const lengthOfFirstList: (array: number[], array2: number[]) => number = R.pipe(
-  R.nthArg(0),
-  R.length,
-)
-
-const lengthOfSecondList: (
+const lengthOfSecondArg: (
   array1: number[],
   array2: number[],
-) => number = R.pipe(
-  R.nthArg(1),
-  R.length,
-)
+) => number = R.flip(R.length)
 
 export const haveSameLength: (
   array1: number[],
   array2: number[],
-) => boolean = R.converge(R.identical, [lengthOfFirstList, lengthOfSecondList])
+) => boolean = R.converge(R.identical, [R.length, lengthOfSecondArg])
 
 export const deepEqual: (
   array1: number[],

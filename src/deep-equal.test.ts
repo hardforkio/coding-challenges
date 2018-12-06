@@ -4,6 +4,7 @@ import { deepEqual, haveSameLength } from "./deep-equal"
 const array1 = [1, 2, 3, 4, 5]
 const array2 = [1, 2, 3, 4, 5]
 const array3 = [5, 4, 3, 2, 1]
+const array4 = [5, 4, 3, 2, 1, 3]
 
 test("two arrays with the same content", (assert) => {
   assert.plan(1)
@@ -17,7 +18,7 @@ test("two arrays with different content", (assert) => {
 
 test("two arrays with different content", (assert) => {
   assert.plan(1)
-  assert.equal(deepEqual(array1, [...array2, 5]), false)
+  assert.equal(deepEqual(array1, array4), false)
 })
 
 test("array length", (assert) => {
