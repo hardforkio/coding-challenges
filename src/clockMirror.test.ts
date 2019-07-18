@@ -36,7 +36,7 @@ test("Date Writing", assert => {
 
 test("Format Conversion, Simplifying", assert => {
   assert.plan(2);
-  assert.equal(saneTimeNotationToCrazyTimeNotation("12:02"), 2);
+  assert.equal(crazyTimeNotationToSaneTimeNotation("12:02"), 2);
 });
 
 test("Format Conversion, Obfuscating", assert => {
