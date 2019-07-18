@@ -1,17 +1,19 @@
 const R = require("ramda");
+const util = require("util");
 
 // Taken from https://www.codewars.com/kata/clock-in-mirror/javascript
 
-//Return number TODO express in typescript
 const timestampToMinutes = (stringTime: string) => {
-  //parse string... use library TODO
+  const h = parseInt(stringTime.substring(0, 3));
+  const m = parseInt(stringTime.substring(4, 6));
+  return 60 * h + m;
 };
 
-//fixme: specify type as integer, not number
 const minutesToTimestamp = (minutes: number) => {
+  const padTo2Digits = (n: number) => n.toString().padStart(2);
   const h = minutes / 60;
   const m = minutes % 60;
-  return `${h}:${m}`;
+  return `${padTo2Digits(h)}:${padTo2Digits(m)}`;
 };
 
 const strangeTimetoModulo720Time = (t: number) => t - 60;
