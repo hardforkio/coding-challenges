@@ -1,9 +1,6 @@
 const test = require('tape')
 const { decrypt, encrypt } = require('./simpleEncryption')
 const {
-  filterStringByIndexProperty,
-  isEven,
-  not,
   repeated,
   ciphertextIndexToPlaintextIndex,
   plaintextIndexToCiphertextIndex,
@@ -65,31 +62,6 @@ test('Solution', function(t) {
 })
 
 test('Test Helpers', function(t) {
-  t.test('Test FiltersByIndexProperty', function(assert) {
-    assert.equals(
-      filterStringByIndexProperty('0123456789', isEven),
-      '02468',
-      'Test with even'
-    )
-    assert.equals(
-      filterStringByIndexProperty('0123456789', not(isEven)),
-      '13579',
-      'Test with odd'
-    )
-    assert.end()
-  })
-
-  t.test('Test not', (assert) => {
-    assert.equals(not(() => true)(23), false, 'negation')
-    assert.end()
-  })
-
-  t.test('Test even', (assert) => {
-    assert.equals(isEven(5), false, 'even false case')
-    assert.equals(isEven(0), true, 'even true case zero')
-    assert.end()
-  })
-
   t.test('Test repeat', (assert) => {
     const increment = (x) => x + 1
     assert.equals(repeated(increment)(0, 5), 5, 'increment 0 five times')

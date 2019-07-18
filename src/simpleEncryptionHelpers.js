@@ -1,27 +1,6 @@
 const R = require('ramda')
 
-const isEven = (n) => n % 2 === 0
-
-const not = (booleanValuedFunc) => (...args) => !booleanValuedFunc(...args)
-
 const stringConcat = (acc, str) => acc + str
-
-const indexedFilter = R.addIndex(R.filter)
-
-const indexMatchesPredicate = (predicate) =>
-  R.pipe(
-    R.nthArg(1),
-    predicate
-  )
-
-const filterIfIndexMatchesPredicate = (predicate) =>
-  indexedFilter(indexMatchesPredicate(predicate))
-
-const filterStringByIndexProperty = (text, predicate) =>
-  R.pipe(
-    filterIfIndexMatchesPredicate(predicate),
-    R.join('')
-  )(text)
 
 const range = (n) => [...Array(n).keys()]
 
@@ -34,12 +13,9 @@ const plaintextIndexToCiphertextIndex = (i, length) =>
   i % 2 ? Math.floor(i / 2) : Math.floor(i / 2) + Math.floor(length / 2)
 
 module.exports = {
-  isEven,
-  not,
-  stringConcat,
-  filterStringByIndexProperty,
   repeated,
   range,
   ciphertextIndexToPlaintextIndex,
   plaintextIndexToCiphertextIndex,
+  stringConcat,
 }
