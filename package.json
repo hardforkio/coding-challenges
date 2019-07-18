@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "tape ./src/*.test.js |tap-spec",
-    "test:watch": "tape ./src/*.test.js --watch |tap-spec"
+    "test:watch": "tape-watch ./src/*.test.js |tap-spec"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,8 @@
   "devDependencies": {
     "prettier": "^1.14.3",
     "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "tape": "^4.9.1",
+    "tape-watch": "^2.3.0"
   },
   "dependencies": {
     "ramda": "^0.26.1"

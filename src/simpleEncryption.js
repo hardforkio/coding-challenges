@@ -1,38 +1,36 @@
 //Taken from https://www.codewars.com/kata/simple-encryption-number-1-alternating-split/javascript
+const R = require('ramda')
+const { repeated } = require('./simpleEncryptionHelpers')
 
-const {
-  isEven,
-  not,
-  filterStringByIndexProperty,
-  repeated,
-  stringConcat,
-  plaintextIndexToCiphertextIndex,
-} = require('./simpleEncryptionHelpers')
+const isOdd = (value) => !!(value % 2)
+const indexIsOdd = (_, index) => isOdd(index)
+const indexIsEven = (_, index) => !(index % 2)
 
-const encryptOnce = (cleartext) => {
-  const substring_of_even_positions = filterStringByIndexProperty(
-    cleartext,
-    isEven
-  )
-  const substring_of_odd_positions = filterStringByIndexProperty(
-    cleartext,
-    not(isEven)
-  )
-  return substring_of_odd_positions + substring_of_even_positions
+const takeCharsWithOddPosition = R.addIndex(R.filter)(indexIsOdd)
+const takeCharsWithEvenPosition = R.addIndex(R.filter)(indexIsEven)
+
+const ifArrayHasOddLengthInsertPlaceholderInTheMiddle = (value) => {
+  if (isOdd(value.length)) {
+    return R.insert(Math.floor(value.length / 2), '', value)
+  }
+  return value
 }
 
-const decryptOnce = (ciphertext) => {
-  /*Decrypt simply shuffles the text according to a permutation of indices
-    Encrypt shuffles according to the inverse permutation
-    Note this allows a more elegant implementation of encrypt (TODO)*/
+const takeSecondHalf = (value) => R.slice(value.length / 2, Infinity, value)
+const takeFirstHalf = (value) => R.slice(0, value.length / 2, value)
 
-  let plaintext = Array(ciphertext.length)
-  for (let i = 0; i < ciphertext.length; i++)
-    plaintext[i] =
-      ciphertext[plaintextIndexToCiphertextIndex(i, ciphertext.length)]
+const encryptOnce = R.pipe(
+  R.converge(R.concat, [takeCharsWithOddPosition, takeCharsWithEvenPosition]),
+  R.join('')
+)
 
-  return plaintext.reduce(stringConcat)
-}
+const decryptOnce = R.pipe(
+  R.split(''),
+  ifArrayHasOddLengthInsertPlaceholderInTheMiddle,
+  R.converge(R.zip, [takeSecondHalf, takeFirstHalf]),
+  R.flatten,
+  R.join('')
+)
 
 const encrypt = repeated(encryptOnce)
 const decrypt = repeated(decryptOnce)
@@ -40,6 +38,4 @@ const decrypt = repeated(decryptOnce)
 module.exports = {
   decrypt,
   encrypt,
-  filterStringByIndexProperty,
-  plaintextIndexToCiphertextIndex,
 }
