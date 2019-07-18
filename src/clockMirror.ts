@@ -2,12 +2,17 @@
 const R = require("ramda");
 const {
   timestampToMinutes,
-  minutesToTimestamp,
-  strangeTimetoModulo720Time,
-  modulo720TimeToStrangeTime,
-  weirdCoordinteSystemOriginToGoodCoordinateSystemOrigin,
-  goodCoordinteSystemOriginToWeirdCoordinateSystemOrigin
+  minutesToTimestamp
 } = require("./clockMirrorHelpers");
+
+const strangeTimetoModulo720Time = (t: number) => t - 60;
+const modulo720TimeToStrangeTime = (t: number) => t + 60;
+
+//fixme more descriptive name
+const weirdCoordinteSystemOriginToGoodCoordinateSystemOrigin = (t: number) =>
+  ((t - 11 * 60) % 12) * 60;
+const goodCoordinteSystemOriginToWeirdCoordinateSystemOrigin = (t: number) =>
+  ((t + 11 * 60) % 12) * 60;
 
 export const crazyTimeNotationToSaneTimeNotation = R.pipe(
   timestampToMinutes,
