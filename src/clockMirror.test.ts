@@ -23,3 +23,23 @@ test("Basic Test", assert => {
   assert.plan(1);
   assert.equal(WhatIsTheTime("06:00"), "06:00");
 });
+
+test("Date Parsing", assert => {
+  assert.plan(1);
+  assert.equal(timestampToMinutes("06:35"), 6 * 60 + 35);
+});
+
+test("Date Writing", assert => {
+  assert.plan(1);
+  assert.equal(minutesToTimestamp(6 * 60 + 35), "06:35");
+});
+
+test("Format Conversion, Simplifying", assert => {
+  assert.plan(2);
+  assert.equal(saneTimeNotationToCrazyTimeNotation("12:02"), 2);
+});
+
+test("Format Conversion, Obfuscating", assert => {
+  assert.plan(2);
+  assert.equal(saneTimeNotationToCrazyTimeNotation(2), "12:02");
+});
