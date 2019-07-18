@@ -46,6 +46,7 @@
     "yarn": "^1.12.3"
   },
   "dependencies": {
+    "@types/node": "^12.6.8",
     "ramda": "^0.26.0"
   }
 }
