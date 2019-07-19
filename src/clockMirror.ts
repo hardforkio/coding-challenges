@@ -5,30 +5,30 @@ const {
   minutesToTimestamp
 } = require("./clockMirrorHelpers");
 
-const strangeTimetoModulo720Time = (t: number) => t - 60;
-const modulo720TimeToStrangeTime = (t: number) => t + 60;
+const HOUR = 60;
+const inputTimeToModuloTime = (time: number) => time - 1 * HOUR;
+const moduloTimeToInputTime = (time: number) => time + 1 * HOUR;
 
-//fixme more descriptive name
-const weirdCoordinteSystemOriginToGoodCoordinateSystemOrigin = (t: number) =>
-  ((t - 11 * 60) % 12) * 60;
-const goodCoordinteSystemOriginToWeirdCoordinateSystemOrigin = (t: number) =>
-  ((t + 11 * 60) % 12) * 60;
+const transformToBestCoordinateSystem = (time: number) =>
+  (time - 11 * HOUR) % (12 * HOUR);
+const transformToOriginalCoordinateSystem = (time: number) =>
+  (time + 11 * HOUR) % (12 * HOUR);
 
-export const crazyTimeNotationToSaneTimeNotation = R.pipe(
+export const originalTimeNotationToBestTimeNotation = R.pipe(
   timestampToMinutes,
-  strangeTimetoModulo720Time,
-  weirdCoordinteSystemOriginToGoodCoordinateSystemOrigin
+  inputTimeToModuloTime,
+  transformToBestCoordinateSystem
 );
 
-export const saneTimeNotationToCrazyTimeNotation = R.pipe(
-  goodCoordinteSystemOriginToWeirdCoordinateSystemOrigin,
-  modulo720TimeToStrangeTime,
+export const bestTimeNotationToOriginalTimeNotation = R.pipe(
+  transformToOriginalCoordinateSystem,
+  inputTimeToModuloTime,
   minutesToTimestamp
 );
 
 export const WhatIsTheTime = (timeInMirror: string) =>
   R.pipe(
-    crazyTimeNotationToSaneTimeNotation,
+    originalTimeNotationToBestTimeNotation,
     (t: number) => -t, //Inverts position of clock hand
-    saneTimeNotationToCrazyTimeNotation
+    bestTimeNotationToOriginalTimeNotation
   )(timeInMirror);

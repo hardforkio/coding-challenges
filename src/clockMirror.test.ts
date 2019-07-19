@@ -1,10 +1,30 @@
 import test from "tape";
 import {
   WhatIsTheTime,
-  saneTimeNotationToCrazyTimeNotation,
-  crazyTimeNotationToSaneTimeNotation
+  bestTimeNotationToOriginalTimeNotation,
+  originalTimeNotationToBestTimeNotation
 } from "./clockMirror";
 import { minutesToTimestamp, timestampToMinutes } from "./clockMirrorHelpers";
+
+test("Date Parsing", assert => {
+  assert.plan(1);
+  assert.equal(timestampToMinutes("06:35"), 6 * 60 + 35);
+});
+
+test("Date Writing", assert => {
+  assert.plan(1);
+  assert.equal(minutesToTimestamp(6 * 60 + 35), "06:35");
+});
+
+test("Format Conversion, Simplifying", assert => {
+  assert.plan(2);
+  assert.equal(originalTimeNotationToBestTimeNotation("12:02"), 2);
+});
+
+test("Format Conversion, Obfuscating", assert => {
+  assert.plan(2);
+  assert.equal(bestTimeNotationToOriginalTimeNotation(2), "12:02");
+});
 
 test("Basic Test", assert => {
   assert.plan(1);
@@ -22,24 +42,4 @@ test("Basic Test", assert => {
 test("Basic Test", assert => {
   assert.plan(1);
   assert.equal(WhatIsTheTime("06:00"), "06:00");
-});
-
-test("Date Parsing", assert => {
-  assert.plan(1);
-  assert.equal(timestampToMinutes("06:35"), 6 * 60 + 35);
-});
-
-test("Date Writing", assert => {
-  assert.plan(1);
-  assert.equal(minutesToTimestamp(6 * 60 + 35), "06:35");
-});
-
-test("Format Conversion, Simplifying", assert => {
-  assert.plan(2);
-  assert.equal(crazyTimeNotationToSaneTimeNotation("12:02"), 2);
-});
-
-test("Format Conversion, Obfuscating", assert => {
-  assert.plan(2);
-  assert.equal(saneTimeNotationToCrazyTimeNotation(2), "12:02");
 });
