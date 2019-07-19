@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/hardforkio/coding-challenges#readme",
   "devDependencies": {
-    "@types/ramda": "^0.25.42",
+    "@types/ramda": "^0.25.51",
     "@types/tape": "^4.2.33",
     "onchange": "^5.1.0",
     "prettier": "^1.14.3",
