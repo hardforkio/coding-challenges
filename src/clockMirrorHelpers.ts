@@ -14,11 +14,15 @@ export const parseTimestamp = (stringTime: string): number => {
 }
 
 export const makeTimestamp = (minutes: number): string => {
-  const padTo2Digits = (n: number) => R.toString(n).padStart(2, "0") // is this a pure function?
+  const h = Math.floor(R.divide(minutes, HOUR))
+  const m = R.mathMod(minutes, HOUR)
 
-  const h = Math.floor(minutes / HOUR)
-  const m = minutes % HOUR
-  return `${padTo2Digits(h)}:${padTo2Digits(m)}`
+  const to2Digits = R.pipe(
+    R.toString,
+    (s) => (s.length < 2 ? "0" + s : s),
+  )
+
+  return `${to2Digits(h)}:${to2Digits(m)}`
 }
 
 export const inputTimeToModuloTime = (inputTime: number) =>
