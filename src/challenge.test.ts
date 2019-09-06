@@ -1,7 +1,8 @@
+// Your tests go here.
 import test from "tape"
-import { add } from "./challenge"
+import { fn } from "./challenge"
 
-test("Should add two numbers", (assert) => {
+test("fn is undefined.", (assert) => {
   assert.plan(1)
-  assert.equal(add(1, 2), 3)
+  assert.equal(fn, undefined)
 })

@@ -1,3 +1,8 @@
-import R from "ramda"
+// Your challenge goes here.
+// ...
 
-export const add: (a: number, b: number) => number = R.add
+// Solutions go here.
+const fn = undefined
+
+// Export the solutions.
+export { fn }
