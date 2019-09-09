@@ -6,6 +6,9 @@ export interface Node {
     right: Node | null
 }
 
-export const sumTheTreeValues = (root: Node) => {
-    return
+export const sumTheTreeValues = (root: Node | null): number => {
+    if (root === null) {
+        return 0
+    }
+    return root.value + sumTheTreeValues(root.left) + sumTheTreeValues(root.right)
 }
