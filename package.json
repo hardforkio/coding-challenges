@@ -51,6 +51,7 @@
     "yarn": "^1.12.3"
   },
   "dependencies": {
-    "ramda": "^0.26.0"
+    "ramda": "^0.26.0",
+    "ts.data.maybe": "^0.9.0"
   }
 }
