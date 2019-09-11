@@ -1,5 +1,5 @@
-//https://www.codewars.com/kata/mumbling/javascript
+// https://www.codewars.com/kata/mumbling/javascript
 
 export function accum(input: string): string {
-  return ''
+  return ""
 }
