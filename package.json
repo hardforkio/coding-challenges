@@ -7,7 +7,7 @@
     "test": "tape -r ts-node/register ./src/*.test.ts |tap-spec",
     "test:watch": "onchange -i 'src/**/*.ts' -- yarn run test",
     "lint": "tslint --project .",
-    "lint:check-config": "tslint-config-prettier-check ./tslint.json"
+    "prelint": "tslint-config-prettier-check ./tslint.json"
   },
   "repository": {
     "type": "git",
