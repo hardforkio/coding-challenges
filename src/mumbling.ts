@@ -9,9 +9,9 @@ export const repeatNTimes = (name: string, n: number) =>
 export const capitalize = R.converge(R.concat, [
     R.pipe(
         R.head,
-        R.toUpper
+        R.toUpper,
     ),
-    R.tail
+    R.tail,
 ])
 
 export const mumble = R.pipe(
@@ -19,5 +19,5 @@ export const mumble = R.pipe(
     R.split(""),
     mapIndexed(repeatNTimes),
     R.map(capitalize),
-    R.join("-")
+    R.join("-"),
 )

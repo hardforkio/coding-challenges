@@ -1,7 +1,12 @@
 {
-    "trailingComma": "es5",
-    "tabWidth": 4,
-    "semi": false,
-    "doubleQuote": true,
-    "arrowParens": "always"
+  "trailingComma": "all",
+  "tabWidth": 4,
+  "semi": false,
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": [".prettierrc", "*.json"],
+      "options": { "parser": "json", "tabWidth": 2 }
+    }
+  ]
 }
