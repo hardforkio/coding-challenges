@@ -1,7 +1,10 @@
 import test from "tape"
-import { add } from "./challenge"
+import { isValidWalk } from "./challenge"
 
-test("Should add two numbers", (assert) => {
-  assert.plan(1)
-  assert.equal(add(1, 2), 3)
+test("Should check for a valid walking time and end point", (assert) => {
+  assert.equal(isValidWalk(["n", "s", "n", "s", "n", "s", "n", "s", "n", "s"]), true, "is a valid walk")
+  assert.equal(isValidWalk(["w", "e", "w", "e", "w", "e", "w", "e", "w", "e", "w", "e"]), false, "walk is too long")
+  assert.equal(isValidWalk(["w"]), false, "walk is too short")
+  assert.equal(isValidWalk(["n", "n", "n", "s", "n", "s", "n", "s", "n", "s"]), false, "does not retun at home")
+  assert.end()
 })
