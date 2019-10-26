@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tape -r ts-node/register ./src/*.test.ts |tap-spec",
     "test:watch": "onchange 'src/**/*.ts' -- yarn run test",
-    "lint": "eslint './src/**/*.ts?'"
+    "lint": "tsc --noEmit && eslint '*/**/*.ts'"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,9 @@
   "devDependencies": {
     "@types/ramda": "^0.25.42",
     "@types/tape": "^4.2.32",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
     "onchange": "^5.1.0",
