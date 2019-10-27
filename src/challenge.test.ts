@@ -1,5 +1,5 @@
 import test from "tape"
-import { isValidWalk } from "./challenge"
+import { isValidWalk, getDistanceInDirection } from "./challenge"
 
 test("Should check for a valid walking time and end point", assert => {
   assert.equal(
@@ -27,6 +27,20 @@ test("Should check for a valid walking time and end point", assert => {
     isValidWalk(["n", "s", "e", "w", "w", "w", "e", "e", "n", "s"]),
     true,
     "is valid"
+  )
+  assert.end()
+})
+
+test("Get the distance in a direction", assert => {
+  assert.equal(
+    getDistanceInDirection("n")(["n", "s", "n"]),
+    2,
+    "Two steps to north"
+  )
+  assert.equal(
+    getDistanceInDirection("s")(["n", "s", "n"]),
+    1,
+    "Two steps to south"
   )
   assert.end()
 })
