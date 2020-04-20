@@ -1,5 +1,5 @@
 import test from 'tape'
-import { WhatIsTheTime } from './clockMirror'
+import { WhatIsTheTime } from './challenge'
 
 test('Basic Test', assert => {
   assert.plan(1)
