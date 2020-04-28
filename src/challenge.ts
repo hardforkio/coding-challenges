@@ -7,10 +7,7 @@ export const compareElementwise: (
 
 export const allTrue = all(equals(true))
 
-export const deepEqual: (array1: number[], array2: number[]) => boolean = (
-  array1,
-  array2,
-) = pipe<
+export const deepEqual: (array1: number[], array2: number[]) => boolean = pipe<
   number[],
   number[],
   boolean[],
