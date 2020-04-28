@@ -1,3 +1,19 @@
 import R from 'ramda'
 
-export const add: (a: number, b: number) => number = R.add
+export const compareElementwise = R.zipWith<string, string, boolean>(R.equals)
+
+export const allTrue = R.all(R.equals(true))
+
+export const allElementsEqual = R.pipe(
+  compareElementwise,
+  allTrue,
+)
+
+export const isPalindrom = (word: string) =>
+  allElementsEqual(
+    word.toLowerCase().split(''),
+    word
+      .toLowerCase()
+      .split('')
+      .reverse(),
+  )

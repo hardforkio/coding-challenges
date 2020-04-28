@@ -1,1 +1,0 @@
-export const isPalindrom = (word: string) => false
