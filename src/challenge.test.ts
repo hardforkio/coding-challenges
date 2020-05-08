@@ -1,31 +1,50 @@
-import { deepEqual, allTrue, compareElementwise } from './challenge'
+import {
+  deepEqualBreadthFirst,
+  deepEqualDepthFirst,
+  makeIterableAndZipBreadthFirst,
+  makeIterableAndZipDepthFirst
+} from './challenge'
 
-const array1 = [1, 2, 3, 4, 5]
-const array2 = [1, 2, 3, 4, 5]
-const array3 = [5, 4, 3, 2, 1]
-const array1xarray2 = [true, true, true, true, true]
-const array1xarray3 = [false, false, true, false, false]
+const array1 = [[1, 2], 3]
+const array2 = [[5, 4], 3]
+const array3 = [1, [2, 3]]
 
 test('two arrays with the same content', () => {
-  expect(deepEqual(array1, array2)).toEqual(true)
+  expect(deepEqualBreadthFirst(array1, array1)).toEqual(true)
 })
 
 test('two arrays with different content', () => {
-  expect(deepEqual(array1, array3)).toEqual(false)
+  expect(deepEqualBreadthFirst(array1, array2)).toEqual(false)
+})
+
+test('two arrays with different structure', () => {
+  expect(deepEqualBreadthFirst(array1, array3)).toEqual(false)
 })
 
 test('two arrays with the same content', () => {
-  expect(compareElementwise(array1, array2)).toEqual(array1xarray2)
+  expect(deepEqualDepthFirst(array1, array1)).toEqual(true)
 })
 
 test('two arrays with different content', () => {
-  expect(compareElementwise(array1, array3)).toEqual(array1xarray3)
+  expect(deepEqualDepthFirst(array1, array2)).toEqual(false)
 })
 
-test('all true array', () => {
-  expect(allTrue(array1xarray2)).toEqual(true)
+test('two arrays with different structure', () => {
+  expect(deepEqualDepthFirst(array1, array3)).toEqual(true)
 })
 
-test('not all true array', () => {
-  expect(allTrue(array1xarray3)).toEqual(false)
+test('make iterable and zip', () => {
+  expect(makeIterableAndZipBreadthFirst(array1, array2)).toEqual([
+    [3, 3],
+    [1, 5],
+    [2, 4]
+  ])
+})
+
+test('make iterable and zip', () => {
+  expect(makeIterableAndZipDepthFirst(array1, array2)).toEqual([
+    [1, 5],
+    [2, 4],
+    [3, 3]
+  ])
 })
