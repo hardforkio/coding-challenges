@@ -1,85 +1,51 @@
-class IteratorBase<T> {
-  $value: T[]
-  flat: T[]
-  index: number
-  constructor(xs: T[]) {
-    this.$value = xs
-    this.flat = this.flatten(xs)
-    this.index = 0
-  }
+import * as R from 'ramda'
 
-  next(): { value: T; done: boolean } {
-    if (this.hasNext()) {
-      this.index += 1
-      return { value: this.flat[this.index - 1], done: false }
-    }
-    this.index = 0
-    return { value: this.flat[0], done: true }
-  }
+export type RecursiveNumberList = ReadonlyArray<number | RecursiveNumberList>
 
-  hasNext(): boolean {
-    return !(this.index >= this.flat.length)
-  }
-
-  flatten(xs: T[]): T[] {
-    return xs
-  }
-
-  zip<T, U>(ys: Iterator<U>): [T, U][] {
-    const zs: [T, U][] = []
-    while (true) {
-      const x = this.next()
-      const y = ys.next()
-      if (x.done || y.done) {
-        break
-      }
-      zs.push([x.value, y.value])
-    }
-    return zs
+export const reduceDFS = (
+  acc: ReadonlyArray<number>,
+  currentElement: number | RecursiveNumberList,
+): ReadonlyArray<number> => {
+  if (typeof currentElement === 'number') {
+    return R.append(currentElement, acc)
+  } else {
+    return R.concat(acc, R.reduce(reduceDFS, [], currentElement))
   }
 }
 
-export class IteratorDepthFirst<T> extends IteratorBase<T> {
-  static of<U>(xs: U[]): IteratorDepthFirst<U> {
-    return new IteratorDepthFirst(xs)
-  }
+type BFSAccumulator = {
+  result: ReadonlyArray<number>
+  todo: RecursiveNumberList
+}
 
-  flatten(xs: T[] | [T[]], _flat: T[] = []): T[] {
-    for (let i = 0; i < xs.length; i += 1) {
-      if (Array.isArray(xs[i])) {
-        this.flatten(xs[i], _flat)
-      } else {
-        _flat.push(xs[i])
-      }
-    }
-    return _flat
+export const BFSreducer = (acc: BFSAccumulator): BFSAccumulator => {
+  const currentElement = R.head(acc.todo)
+  if (!currentElement) {
+    throw new Error('No elements in todo!')
+  }
+  if (typeof currentElement === 'number') {
+    return R.evolve<any>({
+      result: R.append(currentElement),
+      todo: R.drop(1),
+    })(acc)
+  } else {
+    return R.evolve<any>({
+      result: R.identity,
+      todo: R.pipe<
+        RecursiveNumberList,
+        RecursiveNumberList,
+        RecursiveNumberList
+      >(
+        R.drop(1),
+        R.concat(R.__, currentElement),
+      ),
+    })(acc)
   }
 }
 
-export class IteratorBreadthFirst<T> extends IteratorBase<T> {
-  static of<U>(xs: U[]): IteratorBreadthFirst<U> {
-    return new IteratorBreadthFirst(xs)
-  }
+const BFSfinished = (acc: BFSAccumulator): boolean => !acc.todo.length
 
-  flatten(xs: T[] | [T[]], _flat: T[] = []): T[] {
-    let que: T[] = []
-    for (let i = 0; i < xs.length; i += 1) {
-      if (Array.isArray(xs[i])) {
-        que = que.concat(xs[i])
-      } else {
-        _flat.push(xs[i])
-      }
-    }
-    if (que.length > 0) {
-      this.flatten(que, _flat)
-    }
-    return _flat
-  }
-}
+export const flattenBFS = (list: RecursiveNumberList): ReadonlyArray<number> =>
+  R.prop('result')(R.until(BFSfinished, BFSreducer, { result: [], todo: list }))
 
-export function zip<T, U>(
-  x: IteratorBreadthFirst<T> | IteratorDepthFirst<T>,
-  y: IteratorBreadthFirst<U> | IteratorDepthFirst<U>
-): [T, U][] {
-  return x.zip(y)
-}
+export const flattenDFS = R.reduce(reduceDFS, [])
