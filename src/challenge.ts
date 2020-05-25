@@ -17,6 +17,7 @@ export const createSubstringFromLetterAndAddToList = (
   ])
 
 export const accum = R.pipe(
+  R.split(''),
   R.reduce(createSubstringFromLetterAndAddToList, []),
   R.join('-')
 )
