@@ -1,23 +1,22 @@
 // https://www.codewars.com/kata/mumbling/javascript
 
-import { reduce } from 'ramda'
+import R from 'ramda'
 
-export const createSummand: (letter: string, length: number) => string = (
-  letter,
-  length,
-) =>
-  `${letter.toUpperCase()}${Array(length)
-    .fill(letter.toLowerCase())
-    .join('')}`
+export const repeatLetter1TimesAndNMinusOneTimesLowerCase = (
+  letter: string,
+  n: number
+): string =>
+  R.join('', R.concat([R.toUpper(letter)], R.repeat(R.toLower(letter), n)))
 
-export const addSummand: (summands: string[], letter: string) => string[] = (
-  summands,
-  letter,
-) => {
-  summands.push(createSummand(letter, summands.length))
-  return summands
-}
+export const createSubstringFromLetterAndAddToList = (
+  subStringList: string[],
+  letter: string
+): string[] =>
+  R.concat(subStringList, [
+    repeatLetter1TimesAndNMinusOneTimesLowerCase(letter, subStringList.length)
+  ])
 
-export function accum(input: string): string {
-  return reduce(addSummand, [], input.split('')).join('-')
-}
+export const accum = R.pipe(
+  R.reduce(createSubstringFromLetterAndAddToList, []),
+  R.join('-')
+)
