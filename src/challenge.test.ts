@@ -1,5 +1,5 @@
 import test from 'tape'
-import { sumOfPositive } from './challenge'
+import { sumOfPositive, reducer } from './challenge'
 
 test('Sums ', assert => {
   assert.plan(1)
@@ -16,4 +16,10 @@ test('Sums ', assert => {
 test('Sums ', assert => {
   assert.plan(1)
   assert.equal(sumOfPositive([-1, -2, -3, -4, -5]), 0)
+})
+
+test('test reducer', assert => {
+  assert.equal(reducer(1, 1), 2, 'add positive')
+  assert.equal(reducer(1, -1), 1, 'do not add negative')
+  assert.end()
 })
