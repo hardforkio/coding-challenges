@@ -2,7 +2,7 @@ import {
   isPalindrom,
   allElementsEqual,
   allTrue,
-  compareElementwise,
+  compareElementwise
 } from './challenge'
 
 const array1 = ['a', 'b', 'c']
@@ -37,7 +37,7 @@ test('not all true array', () => {
 test('Expected to return true since racecar is a palindrome', () => {
   expect(isPalindrom('racecar')).toEqual(true)
 })
-test('Expected to return true since Anna is a palindrome (does it handle case as expected?)', () => {
+test('Expected to return true. Does it handle case as expected?', () => {
   expect(isPalindrom('Anna')).toEqual(true)
 })
 test('Expected to return false since table is not a palindrome', () => {
