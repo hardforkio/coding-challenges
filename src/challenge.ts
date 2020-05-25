@@ -4,16 +4,8 @@ export const compareElementwise = R.zipWith<string, string, boolean>(R.equals)
 
 export const allTrue = R.all(R.equals(true))
 
-export const allElementsEqual = R.pipe(
-  compareElementwise,
-  allTrue,
-)
+export const allElementsEqual = R.pipe(compareElementwise, allTrue)
 
-export const isPalindrom = (word: string) =>
-  allElementsEqual(
-    word.toLowerCase().split(''),
-    word
-      .toLowerCase()
-      .split('')
-      .reverse(),
-  )
+export const isPalindrom = R.pipe(R.toLower, R.split(''), letterList =>
+  allElementsEqual(letterList, R.reverse(letterList))
+)
