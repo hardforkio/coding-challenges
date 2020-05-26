@@ -11,12 +11,10 @@ const unbalancedNode: Node = {
   value: 11,
 }
 
-test('Simple Test', () => {
-  test('Sums up all children', () => {
-    expect(sumTheTreeValues(simpleNode)).toEqual(13)
-  })
+test('Sums up all children', () => {
+  expect(sumTheTreeValues(simpleNode)).toEqual(13)
+})
 
-  test('Handles unbalanced trees', () => {
-    expect(sumTheTreeValues(unbalancedNode)).toEqual(12)
-  })
+test('Handles unbalanced trees', () => {
+  expect(sumTheTreeValues(unbalancedNode)).toEqual(12)
 })
