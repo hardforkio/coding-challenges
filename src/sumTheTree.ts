@@ -18,17 +18,17 @@ export const getChildren: (node: Node) => NodeList = R.pipe<
   ReadonlyArray<Node>
 >(
   R.juxt<Node, Node | null>([R.prop('left'), R.prop('right')]),
-  R.reject<any>(R.equals(null))
+  R.reject<any>(R.equals(null)),
 )
 
 export const treeReducer = (
   acc: ReadonlyArray<number>,
-  currentElement: Node | null
+  currentElement: Node | null,
 ): ReadonlyArray<number> => {
   if (currentElement) {
     return R.concat(
       R.append(R.prop('value')(currentElement), acc),
-      R.reduce(treeReducer, [], getChildren(currentElement))
+      R.reduce(treeReducer, [], getChildren(currentElement)),
     )
   }
   return acc
@@ -36,10 +36,10 @@ export const treeReducer = (
 
 export const mapTreeToArray: (root: Node) => ReadonlyArray<number> = R.pipe(
   (x: Node): NodeList => [x],
-  R.reduce(treeReducer, [])
+  R.reduce(treeReducer, []),
 )
 
 export const sumTheTreeValues: (root: Node) => number = R.pipe(
   mapTreeToArray,
-  R.sum
+  R.sum,
 )
