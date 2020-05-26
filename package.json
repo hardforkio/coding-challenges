@@ -4,9 +4,8 @@
   "description": "A collection of challenges used at Hardfork.",
   "private": true,
   "scripts": {
-    "test": "tape -r ts-node/register ./src/*.test.ts |tap-spec",
-    "test:watch": "onchange 'src/**/*.ts' -- yarn run test",
-    "lint": "tslint -p ."
+    "test": "jest",
+    "lint": "tsc --noEmit && eslint 'src/**/*.ts'"
   },
   "repository": {
     "type": "git",
@@ -33,19 +32,26 @@
   },
   "homepage": "https://github.com/hardforkio/coding-challenges#readme",
   "devDependencies": {
+    "@types/jest": "^25.2.1",
     "@types/ramda": "^0.25.42",
-    "@types/tape": "^4.2.32",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^25.4.0",
     "onchange": "^5.1.0",
     "prettier": "^1.14.3",
-    "prettier-tslint": "^0.4.0",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.9.1",
+    "ts-jest": "^25.4.0",
     "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
     "typescript": "^3.1.6",
     "yarn": "^1.12.3"
   },
   "dependencies": {
     "ramda": "^0.26.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }
