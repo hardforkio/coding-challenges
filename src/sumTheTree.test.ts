@@ -1,8 +1,7 @@
-import test from "tape"
-import { Node, sumTheTreeValues } from "./sumTheTree"
+import { Node, sumTheTreeValues } from './sumTheTree'
 
 const simpleNode: Node = {
-  left:  { left: null, right: null, value: 1 },
+  left: { left: null, right: null, value: 1 },
   right: { left: null, right: null, value: 2 },
   value: 10,
 }
@@ -12,14 +11,10 @@ const unbalancedNode: Node = {
   value: 11,
 }
 
-test("Simple Test", (t) => {
-  t.test("Sums up all children", (assert) => {
-    assert.plan(1)
-    assert.equal(sumTheTreeValues(simpleNode), 13)
-  })
+test('Sums up all children', () => {
+  expect(sumTheTreeValues(simpleNode)).toEqual(13)
+})
 
-  t.test("Handles unbalanced trees", (assert) => {
-    assert.plan(1)
-    assert.equal(sumTheTreeValues(unbalancedNode), 12)
-  })
+test('Handles unbalanced trees', () => {
+  expect(sumTheTreeValues(unbalancedNode)).toEqual(12)
 })
