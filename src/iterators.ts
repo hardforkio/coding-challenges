@@ -1,5 +1,9 @@
 import * as R from 'ramda'
 
+export interface Iterator {
+  (list: RecursiveNumberList): ReadonlyArray<number>
+}
+
 export type RecursiveNumberList = ReadonlyArray<number | RecursiveNumberList>
 
 export const reduceDFS = (
