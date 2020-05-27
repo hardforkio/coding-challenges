@@ -22,10 +22,11 @@ const walkEvolver = (direction: string) => {
 export const walkReducer = (acc: possition, curr: string) =>
   walkEvolver(curr)(acc)
 
-export const returnsToOrigin = (walk: string[]): boolean => {
-  const finalPossition = R.reduce(walkReducer, { toNorth: 0, toWest: 0 }, walk)
-  return finalPossition.toNorth === 0 && finalPossition.toWest === 0
-}
+export const returnsToOrigin = (walk: string[]): any => R.pipe(
+    R.reduce(walkReducer, { toNorth: 0, toWest: 0 }),
+    R.juxt([R.prop('toWest'), R.prop('toNorth')]),
+    R.map(R.equals(0)),
+    R.tap(console.log))
 
 export const isTenMinutesLong = (walk: string[]): boolean => walk.length === 10
 
