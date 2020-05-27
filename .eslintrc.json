@@ -12,7 +12,8 @@
       {
         "semi": false,
         "trailingComma": "all",
-        "singleQuote": true
+        "singleQuote": true,
+        "printwidth": 80
       }
     ],
     "curly": ["error", "multi-line"]
