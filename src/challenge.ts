@@ -2,7 +2,7 @@
 
 import R from 'ramda'
 
-type possition = { toNorth: number; toWest: number }
+type Possition = { toNorth: number; toWest: number }
 
 const walkEvolver = (direction: string) => {
   switch (direction) {
@@ -19,14 +19,14 @@ const walkEvolver = (direction: string) => {
   }
 }
 
-export const walkReducer = (acc: possition, curr: string) =>
+export const walkReducer = (acc: Possition, curr: string): Possition =>
   walkEvolver(curr)(acc)
 
-export const returnsToOrigin = (walk: string[]): any => R.pipe(
-    R.reduce(walkReducer, { toNorth: 0, toWest: 0 }),
-    R.juxt([R.prop('toWest'), R.prop('toNorth')]),
-    R.map(R.equals(0)),
-    R.tap(console.log))
+export const returnsToOrigin: (walk: string[]) => boolean = R.pipe(
+  R.reduce(walkReducer, { toNorth: 0, toWest: 0 }),
+  R.values,
+  R.all(R.equals(0)),
+)
 
 export const isTenMinutesLong = (walk: string[]): boolean => walk.length === 10
 
