@@ -44,7 +44,7 @@
     "prettier": "^1.14.3",
     "ts-jest": "^25.4.0",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.6",
+    "typescript": "^3.9.3",
     "yarn": "^1.12.3"
   },
   "dependencies": {
