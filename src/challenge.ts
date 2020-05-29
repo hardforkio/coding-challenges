@@ -9,8 +9,7 @@ export const deepEqual: (
   listOne: RecursiveNumberList,
   listTwo: RecursiveNumberList,
 ) => boolean = R.pipe(
-  (...lists) => lists,
-  R.map(flattenBFS),
-  ([x, y]) => compareElementwise(x, y),
+  R.unapply(R.map(flattenBFS)),
+  R.apply(compareElementwise),
   allTrue,
 )
