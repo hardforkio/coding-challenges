@@ -19,16 +19,27 @@ const walkEvolver = (direction: string) => {
   }
 }
 
-export const walkReducer = (acc: Possition, curr: string): Possition =>
-  walkEvolver(curr)(acc)
+export const selectEvolverAccordingToLetterAndApplyToAccumulator = (
+  accumulator: Possition,
+  letter: string,
+): Possition => walkEvolver(letter)(accumulator)
 
 export const returnsToOrigin: (walk: string[]) => boolean = R.pipe(
-  R.reduce(walkReducer, { toNorth: 0, toWest: 0 }),
+  R.reduce(selectEvolverAccordingToLetterAndApplyToAccumulator, {
+    toNorth: 0,
+    toWest: 0,
+  }),
   R.values,
   R.all(R.equals(0)),
 )
 
-export const isTenMinutesLong = (walk: string[]): boolean => walk.length === 10
+export const isTenMinutesLong = R.pipe<string[], number, boolean>(
+  R.prop('length'),
+  R.equals(10),
+)
 
-export const isValidWalk = (walk: string[]): boolean =>
-  isTenMinutesLong(walk) ? returnsToOrigin(walk) : false
+export const isValidWalk = R.ifElse(
+  isTenMinutesLong,
+  returnsToOrigin,
+  isTenMinutesLong,
+)
