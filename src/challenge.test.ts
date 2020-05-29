@@ -2,7 +2,9 @@ import {
   isPalindrom,
   allElementsEqual,
   allTrue,
-  compareElementwise
+  compareElementwise,
+  createArrayOfListAndItsReverse,
+  listEqualsItsReverse
 } from './challenge'
 
 const array1 = ['a', 'b', 'c']
@@ -45,5 +47,27 @@ describe('isPlaindrom', () => {
   })
   test('should return false since table is not a palindrome', () => {
     expect(isPalindrom('table')).toEqual(false)
+  })
+})
+
+describe('listEqualsItsReverse', () => {
+  describe('createArrayOfListAndItsReverse', () => {
+    test('should return an array that contains the original list and its reverse', () => {
+      expect(createArrayOfListAndItsReverse(['a', 'b'])).toEqual([
+        ['a', 'b'],
+        ['b', 'a']
+      ])
+    })
+  })
+  describe('listEqualsItsReverse', () => {
+    test('should return true for list with all elements equal', () => {
+      expect(listEqualsItsReverse(['a', 'a'])).toEqual(true)
+    })
+    test('should return false for list with two unequal elements', () => {
+      expect(listEqualsItsReverse(['a', 'b'])).toEqual(false)
+    })
+    test('should return true for list containig an anagram', () => {
+      expect(listEqualsItsReverse(['a', 'b', 'a'])).toEqual(true)
+    })
   })
 })
