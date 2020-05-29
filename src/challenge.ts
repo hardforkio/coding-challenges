@@ -2,7 +2,18 @@
 
 import R from 'ramda'
 
-export const reducer = (acc: number, curr: number) =>
-  curr >= 0 ? acc + curr : acc
+export const secondElementPositive = R.pipe<number[], number[], boolean>(
+  R.takeLast(1),
+  R.apply(R.lt(0)),
+)
+
+export const returnFirstElementOfList = R.pipe(
+  R.take(1),
+  R.apply(R.identity),
+)
+
+export const reducer = R.unapply(
+  R.ifElse(secondElementPositive, R.apply(R.add), returnFirstElementOfList),
+)
 
 export const sumOfPositive = R.reduce<number, number>(reducer, 0)

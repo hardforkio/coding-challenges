@@ -1,5 +1,5 @@
 import test from 'tape'
-import { sumOfPositive, reducer } from './challenge'
+import { sumOfPositive, reducer, returnFirstElementOfList } from './challenge'
 
 test('Sums ', assert => {
   assert.plan(1)
@@ -21,5 +21,6 @@ test('Sums ', assert => {
 test('test reducer', assert => {
   assert.equal(reducer(1, 1), 2, 'add positive')
   assert.equal(reducer(1, -1), 1, 'do not add negative')
+  assert.equals(returnFirstElementOfList([1, 2]), 1, 'return first element')
   assert.end()
 })
