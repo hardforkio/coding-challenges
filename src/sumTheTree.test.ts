@@ -7,7 +7,7 @@ import {
   appenValueOfFirstNodeInQueToResultArray,
   getChildrenOfFirstElementAsQueue,
   dropFirstNodeFromQueAndAddItsChildrenToQueue,
-  wrapNodeInAccumulator,
+  createInitialAccumulator,
 } from './sumTheTree'
 
 const simpleNode: Node = {
@@ -143,7 +143,7 @@ describe('flattenTree', () => {
   })
   describe('wrapNodeInAccumulator', () => {
     test('should return accumulator with empty list as results and given node in queue', () => {
-      expect(wrapNodeInAccumulator(simpleNode)).toEqual({
+      expect(createInitialAccumulator(simpleNode)).toEqual({
         result: [],
         queue: [simpleNode],
       })

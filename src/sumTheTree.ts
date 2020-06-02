@@ -81,13 +81,15 @@ export const treeToArrayWithAccumulators: (
   accumulator: Accumulator,
 ) => Accumulator = R.until(queIsEmpty, addValueOfNodeToResultAndQueueChildren)
 
-export const wrapNodeInAccumulator: (node: Node) => Accumulator = R.applySpec({
-  result: () => [],
-  queue: (x: Node): Queue => [x],
+export const createInitialAccumulator: (
+  node: Node,
+) => Accumulator = R.applySpec({
+  result: R.always([]),
+  queue: R.unapply(R.identity),
 })
 
 export const treeToArray: (root: Node) => ReadonlyArray<number> = R.pipe(
-  wrapNodeInAccumulator,
+  createInitialAccumulator,
   treeToArrayWithAccumulators,
   R.prop('result'),
 )
