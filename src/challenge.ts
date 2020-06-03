@@ -4,33 +4,55 @@ import R from 'ramda'
 
 type Possition = { toNorth: number; toWest: number }
 
-const walkEvolver = (direction: string) => {
-  switch (direction) {
-    case 'n':
-      return R.evolve({ toNorth: R.add(1) })
-    case 's':
-      return R.evolve({ toNorth: R.add(-1) })
-    case 'w':
-      return R.evolve({ toWest: R.add(1) })
-    case 'e':
-      return R.evolve({ toWest: R.add(-1) })
-    default:
-      return R.evolve({})
-  }
-}
+export const walkOneStepVertically: (
+  possition: number,
+  direction: string,
+) => number = R.cond([
+  [
+    R.pipe(
+      R.nthArg(1),
+      R.equals('n'),
+    ),
+    R.add(-1),
+  ],
+  [
+    R.pipe(
+      R.nthArg(1),
+      R.equals('s'),
+    ),
+    R.add(1),
+  ],
+  [R.T, R.identity],
+])
+export const walkOneStepHorrizontally: (
+  possition: number,
+  direction: string,
+) => number = R.cond([
+  [
+    R.pipe(
+      R.nthArg(1),
+      R.equals('w'),
+    ),
+    R.add(-1),
+  ],
+  [
+    R.pipe(
+      R.nthArg(1),
+      R.equals('e'),
+    ),
+    R.add(1),
+  ],
+  [R.T, R.identity],
+])
 
-export const selectEvolverAccordingToLetterAndApplyToAccumulator = (
-  accumulator: Possition,
-  letter: string,
-): Possition => walkEvolver(letter)(accumulator)
+export const returnsToOriginVertically: (walk: string[]) => boolean = R.pipe(
+  R.reduce(walkOneStepVertically, 0),
+  R.equals(0),
+)
 
-export const returnsToOrigin: (walk: string[]) => boolean = R.pipe(
-  R.reduce(selectEvolverAccordingToLetterAndApplyToAccumulator, {
-    toNorth: 0,
-    toWest: 0,
-  }),
-  R.values,
-  R.all(R.equals(0)),
+export const returnsToOriginHorrizontally: (walk: string[]) => boolean = R.pipe(
+  R.reduce(walkOneStepHorrizontally, 0),
+  R.equals(0),
 )
 
 export const isTenMinutesLong = R.pipe<string[], number, boolean>(
@@ -38,8 +60,8 @@ export const isTenMinutesLong = R.pipe<string[], number, boolean>(
   R.equals(10),
 )
 
-export const isValidWalk = R.ifElse(
+export const isValidWalk = R.allPass([
   isTenMinutesLong,
-  returnsToOrigin,
-  isTenMinutesLong,
-)
+  returnsToOriginHorrizontally,
+  returnsToOriginVertically,
+])
